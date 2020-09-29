@@ -26,5 +26,5 @@ set -eux
 # done
 
 for f in "$@"; do
-    sentinel fmt "$f"
+    sentinel fmt "$f" 2>&1
 done
