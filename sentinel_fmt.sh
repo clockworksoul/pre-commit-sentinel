@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eux
 
 declare -a paths
 declare -a tfvars_files
@@ -30,5 +30,6 @@ done
 for tfvars_file in "${tfvars_files[@]}"; do
   tfvars_file="${tfvars_file//__REPLACED__SPACE__/ }"
 
+  echo $tfvars_file"
   sentinel fmt "$tfvars_file"
 done
