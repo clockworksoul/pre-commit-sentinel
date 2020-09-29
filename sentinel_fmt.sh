@@ -1,35 +1,30 @@
 #!/usr/bin/env bash
 set -eux
 
-declare -a paths
-declare -a tfvars_files
+# for file_with_path in "$@"; do
+#   file_with_path="${file_with_path// /__REPLACED__SPACE__}"
 
-index=0
+#   paths[index]=$(dirname "$file_with_path")
 
-for file_with_path in "$@"; do
-  file_with_path="${file_with_path// /__REPLACED__SPACE__}"
+#   let "index+=1"
+# done
 
-  paths[index]=$(dirname "$file_with_path")
+# for path_uniq in $(echo "${paths[*]}" | tr ' ' '\n' | sort -u); do
+#   path_uniq="${path_uniq//__REPLACED__SPACE__/ }"
 
-  if [[ "$file_with_path" == *".tfvars" ]]; then
-    tfvars_files+=("$file_with_path")
-  fi
+#   pushd "$path_uniq" > /dev/null
+#   sentinel fmt *.sentinel
+#   popd > /dev/null
+# done
 
-  let "index+=1"
-done
+# # sentinel.tfvars are excluded by `sentinel fmt`
+# for tfvars_file in "${tfvars_files[@]}"; do
+#   tfvars_file="${tfvars_file//__REPLACED__SPACE__/ }"
 
-for path_uniq in $(echo "${paths[*]}" | tr ' ' '\n' | sort -u); do
-  path_uniq="${path_uniq//__REPLACED__SPACE__/ }"
+#   echo $tfvars_file"
+#   sentinel fmt "$tfvars_file"
+# done
 
-  pushd "$path_uniq" > /dev/null
-  sentinel fmt
-  popd > /dev/null
-done
-
-# sentinel.tfvars are excluded by `sentinel fmt`
-for tfvars_file in "${tfvars_files[@]}"; do
-  tfvars_file="${tfvars_file//__REPLACED__SPACE__/ }"
-
-  echo $tfvars_file"
-  sentinel fmt "$tfvars_file"
+for f in "$@"; do
+    sentinel fmt "$f"
 done
