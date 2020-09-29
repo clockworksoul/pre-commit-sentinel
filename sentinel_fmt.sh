@@ -3,5 +3,5 @@
 set -e
 
 for f in "$@"; do
-    sentinel fmt "$f" | grep -v 'file(s) formatted'
+    sentinel fmt "$f"
 done
