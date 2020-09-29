@@ -1,0 +1,7 @@
+- id: sentinel_fmt
+  name: Sentinel fmt
+  description: Rewrites all Sentinel configuration files to a canonical format.
+  entry: sentinel_fmt.sh
+  language: script
+  files: \.sentinel$
+  exclude: \.terraform\/.*$
